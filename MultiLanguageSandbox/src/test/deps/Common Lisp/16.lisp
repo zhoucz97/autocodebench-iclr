@@ -1,0 +1,30 @@
+(defun make-change (cents)
+  "Returns four values representing the minimum number of quarters, dimes, nickels, and pennies needed to make up the given amount in cents."
+  (let ((quarters (floor cents 25))
+        (remaining (- cents (* (floor cents 25) 25))))
+    (let ((dimes (floor remaining 10))
+          (remaining (- remaining (* (floor remaining 10) 10))))
+      (let ((nickels (floor remaining 5))
+            (pennies (- remaining (* (floor remaining 5) 5))))
+        (values quarters dimes nickels pennies)))))
+
+
+(defun check-make-change ()
+;; 测试 'make-change' 函数。
+(multiple-value-bind (quarters dimes nickels pennies) (make-change 98)
+(assert (equal quarters 3))
+(assert (equal dimes 2))
+(assert (equal nickels 0))
+(assert (equal pennies 3)))
+(multiple-value-bind (quarters dimes nickels pennies) (make-change 41)
+(assert (equal quarters 1))
+(assert (equal dimes 1))
+(assert (equal nickels 1))
+(assert (equal pennies 1)))
+(multiple-value-bind (quarters dimes nickels pennies) (make-change 3)
+(assert (equal quarters 0))
+(assert (equal dimes 0))
+(assert (equal nickels 0))
+(assert (equal pennies 3))))
+
+(check-make-change)

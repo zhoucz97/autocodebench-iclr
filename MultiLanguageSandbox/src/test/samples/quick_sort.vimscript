@@ -1,0 +1,30 @@
+function! Quicksort(list)
+    if empty(a:list) || len(a:list) <= 1
+        return a:list
+    endif
+
+    let pivot = a:list[0]
+    let rest = a:list[1:]
+    let less = []
+    let greater = []
+
+    for x in rest
+        if x < pivot
+            call add(less, x)
+        else
+            call add(greater, x)
+        endif
+    endfor
+
+    return Quicksort(less) + [pivot] + Quicksort(greater)
+endfunction
+
+function! CheckQuicksort()
+    if assert_equal([1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9], Quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])) | cq | endif
+    if assert_equal([1, 2, 3, 4, 5], Quicksort([5, 4, 3, 2, 1])) | cq | endif
+    if assert_equal([], Quicksort([])) | cq | endif
+    if assert_equal([1], Quicksort([1])) | cq | endif
+endfunction
+
+call CheckQuicksort()
+exit(0)

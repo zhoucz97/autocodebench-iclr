@@ -1,0 +1,22 @@
+fun quicksort(list: List<Int>?): List<Int> {
+    if (list == null || list.size <= 1)
+        return list ?: emptyList()
+
+    val pivot = list[0]
+    val rest = list.drop(1)
+    val less = rest.filter { it < pivot }
+    val greater = rest.filter { it >= pivot }
+
+    return quicksort(less) + listOf(pivot) + quicksort(greater)
+}
+
+fun checkQuicksort() {
+    assert(quicksort(listOf(3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5)) == listOf(1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9))
+    assert(quicksort(listOf(5, 4, 3, 2, 1)) == listOf(1, 2, 3, 4, 5))
+    assert(quicksort(emptyList()) == emptyList<Int>())
+    assert(quicksort(listOf(1)) == listOf(1))
+}
+
+fun main() {
+    checkQuicksort()
+}
