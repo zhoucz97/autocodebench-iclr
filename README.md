@@ -35,21 +35,10 @@ Existing code generation benchmarks typically rely on manual annotations, which 
 **MultiLanguageSandbox**: A robust, secure, and high-performance multi-language code execution sandbox service that provides comprehensive support for compilation and execution across more than 30 programming languages.
 
 
-## AutoCodeGen
-<div align="center">
-  <img src="figures/autocodegen.png" width="85%">
-</div>
-
 ## AutoCodeBench
-<div align="center">
-  <img src="figures/bench_comp.png" width="85%">
-</div>
+
 
 Previous benchmarks mainly focused on Python, with multilingual benchmarks like Fullstackbench and McEval suffering from imbalanced language and category distributions, and overly simple difficulty. In contrast, AutoCodeBench is a high-difficulty multilingual benchmark with balanced language and category distributions to better assess models' multilingual capabilities.
-
-<div align="center">
-  <img src="figures/distribution_comp.png" width="85%">
-</div>
 
 
 
