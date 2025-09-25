@@ -23,7 +23,8 @@ if __name__=="__main__":
 
     dt = read_jsonl(args.raw_code_file)
 
-    for i, item in enumerate(dt):
+    datas = []
+    for i, item in enumerate(tqdm(dt, desc="Processing data")):
         prompt = get_prompt(template, item, args.mode)
         data = {
             "messages":[
@@ -34,5 +35,6 @@ if __name__=="__main__":
             "lang": args.lang,
             "seed": item['text']
         }
-        write_jsonl([data], args.raw_code_msg_file, mode='a')
+        datas.append(data)
+    write_jsonl(datas, args.raw_code_msg_file, mode='w')
     

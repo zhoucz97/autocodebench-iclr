@@ -23,11 +23,13 @@ if __name__=="__main__":
 
     dt = read_jsonl(args.raw_code_file)
 
+    datas = []
     for i, item in enumerate(dt):
         prompt = get_prompt(template, item, args.mode)
         item["messages"] = [
                 {"role": "system", "content": ""},
                 {"role":"user", "content": prompt}       
             ]
-        write_jsonl([item], args.raw_code_msg_file, mode='a')
+        datas.append(item)
+    write_jsonl(datas, args.raw_code_msg_file, mode='w')
     

@@ -11,7 +11,7 @@ def read_jsonl(jsonl_file_path):
     s = []
     with open(jsonl_file_path, "r", encoding='utf8') as f:
         # lines = f.readlines()
-        for line in tqdm(f):
+        for line in tqdm(f, desc="Reading JSONL file"):
             linex = line.strip()
             if linex == "":
                 continue
@@ -27,5 +27,5 @@ def write_jsonl(data, jsonl_file_path, mode="w"):
         print(f"create dir {os.path.dirname(jsonl_file_path)}")
         os.makedirs(os.path.dirname(jsonl_file_path))
     with open(jsonl_file_path, mode, encoding='utf8') as f:
-        for item in data:
+        for item in tqdm(data, desc="Writing JSONL file"):
             f.write(json.dumps(item, ensure_ascii=False) + "\n")

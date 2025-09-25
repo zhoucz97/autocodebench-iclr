@@ -1,4 +1,3 @@
-# This script is adapted from https://github.com/hkust-nlp/CodeIO/blob/master/src/batched_api_inference.py
 
 try:
     from openai import OpenAI
@@ -42,12 +41,12 @@ def timer(func):
         return f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
     def wrapper(*args, **kwargs):
         start_time = datetime.datetime.now()
-        print("开始时间：", start_time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("Start time:", start_time.strftime("%Y-%m-%d %H:%M:%S"))
         result = func(*args, **kwargs)
         end_time = datetime.datetime.now()
-        print("结束时间：", end_time.strftime("%Y-%m-%d %H:%M:%S"))
+        print("End time: ", end_time.strftime("%Y-%m-%d %H:%M:%S"))
         elapsed_time = end_time - start_time
-        print("执行时间：", format_time(elapsed_time))
+        print("Execute time:", format_time(elapsed_time))
         return result
     return wrapper
 
@@ -92,8 +91,6 @@ def process_line(js, good_cnt, bad_cnt, lock, output_path):
 
     if response is not None and (finish_reason == 'stop' or finish_reason == 'end_turn'):
         js['output'] = response
-        js['model'] = model
-        js['reasoning'] = reasoning
         json_output = json.dumps(js, ensure_ascii=False)
         with good_cnt.get_lock():
             good_cnt.value += 1

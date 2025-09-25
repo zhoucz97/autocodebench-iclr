@@ -11,11 +11,11 @@ def formatting_test_input_and_output(datas):
         dic['demo_test_output'] = item['demo_test_result']['response']['exec_cout']
         dic['full_test_input'] = item['original_data']['full_test_func']
         dic['full_test_output'] = item['full_test_result']['response']['exec_cout']
-        del dic['demo_test_func']
-        del dic['full_test_func']
-        del dic['_absolute_line_number']
-        del dic['_relative_line_number']
-        del dic['extracted_code']
+        if 'demo_test_func' in dic: del dic['demo_test_func']
+        if 'full_test_func' in dic: del dic['full_test_func']
+        if '_absolute_line_number' in dic: del dic['_absolute_line_number']
+        if '_relative_line_number' in dic: del dic['_relative_line_number']
+        if 'extracted_code' in dic: del dic['extracted_code']
         res.append(dic)
     return res
 
@@ -44,14 +44,15 @@ if __name__=="__main__":
 
     prev_len = len(dt)
     dt = formatting_test_input_and_output(dt)
-    print(f"根据沙盒结果，过滤掉失败的数据共{prev_len - len(dt)}条，剩余{len(dt)}条")
+    
 
-
-    for i, item in enumerate(dt):
+    datas = []
+    for i, item in enumerate(tqdm(dt, desc="Processing data")):
         prompt = get_prompt(template, item, args.mode)
         item["messages"] = [
                 {"role": "system", "content": ""},
                 {"role":"user", "content": prompt}       
             ]
-        write_jsonl([item], args.raw_code_msg_file, mode='a')
+        datas.append(item)
+    write_jsonl(datas, args.raw_code_msg_file, mode='w')
     

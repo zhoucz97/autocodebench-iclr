@@ -3,7 +3,6 @@ from utils import *
 import re
 
 def extract_code_blocks(text):
-    # 正则表达式匹配以 ```{language} 和 ``` 包裹的代码块
     pattern = r'```(\w+)\s([\s\S]*?)```'
     matches = re.findall(pattern, text)
     code_blocks = []
@@ -25,11 +24,16 @@ if __name__=="__main__":
 
     dt = read_jsonl(args.input)
 
+    datas = []
     for i, item in enumerate(dt):
         if not item['success']: continue
         item = item['original_data']
-        del item['_absolute_line_number']
-        del item['_relative_line_number']
-        del item['extracted_code']
-        write_jsonl([item], args.output, mode='a')
+        if '_absolute_line_number' in item:
+            del item['_absolute_line_number']
+        if '_relative_line_number' in item:
+            del item['_relative_line_number']
+        if 'extracted_code' in item:
+            del item['extracted_code']
+        datas.append(item)
+    write_jsonl(datas, args.output, mode='w')
     

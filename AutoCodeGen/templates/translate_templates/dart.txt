@@ -8,7 +8,7 @@ Your task is to:
 
 1. Accurately translate the problem description into clear English while preserving all technical details. Please emphasize that the problem needs to be solved using Dart。
 2. Convert the reference solution into idiomatic Dart code that:
-   - Follows Dart  conventions
+   - Follows Dart conventions
    - Uses appropriate data structures from Dart's standard library
    - Follows Dart's naming conventions
 3. Translate the test cases into Dart's testing framework:
