@@ -1,8 +1,0 @@
-ExUnit.start()
-
-defmodule AssertExamples do
-    use ExUnit.Case
-    test "various assertions" do
-        assert 1 + 1 == 2
-    end
-end
